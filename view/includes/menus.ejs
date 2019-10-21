@@ -1,0 +1,52 @@
+ <ul class="nav">
+                  <li>
+                      <a href="/dashboard">
+                          <i class="material-icons">dashboard</i>
+                          <p>Dashboard</p>                          </p>
+                      </a>
+                  </li>
+               <% if (name.position == 'phone agent') { %>
+                  <li>
+                        <a  href="/nevent">
+                            <i class="material-icons">dvr</i>
+                            <p>New Event</p>
+                        </a>
+                  </li> 
+               <% } %>
+               <% if (name.position == 'radio agent') { %>
+                  <li>
+                        <a  href="/mevents">
+                            <i class="material-icons">dvr</i>
+                            <p>Events</p>
+                        </a>
+                  </li>
+               <% } %>
+               <% if (name.position == 'admin') { %>
+                  <li>
+                        <a  href="/nuser">
+                            <i class="material-icons">add circle</i>
+                            <p>New Agent</p>
+                        </a>
+                  </li> 
+                  <li>
+                        <a  href="/musers">
+                            <i class="material-icons">person</i>
+                            <p>Agents</p>
+                        </a>
+                  </li>                  
+                  <li>
+                      <a href="/report">
+                          <i class="material-icons">image</i>
+                          <p>Report</p>                          </p>
+                      </a>
+                  </li>
+               <% } %>
+                  <li class="active-pro">
+                        <a  href="logout">
+                            <i class="material-icons">exit_to_app</i>
+    	                      <p>Logout</p>
+                        </a>
+                  </li>
+                 
+                
+                </ul>

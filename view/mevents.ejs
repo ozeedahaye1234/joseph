@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en" ng-app="MNG">
+<head>
+    <meta charset="utf-8" />
+    <meta name="csrf-token" content="L0rvEiKl0OvfKHZkaLH5SZ5VA08NbX3FEHTI0r8g">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link rel="shortcut icon" href="../favicon.ico"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/component.css" />
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Police | EM</title>
+    <style type="text/css">
+    .hiddenRow {
+        padding: 0 !important;
+      }
+      .exp_div{
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      #new_manifest .modal-dialog
+      {
+        width: 50%;
+      }
+      .exp_table{
+        background-color: #dbe;
+      }
+      td.details-control {
+            background: url('img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('img/details_close.png') no-repeat center center;
+        }
+  </style>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src = "assets/js/jquery-3.1.0.min.js" ></script>
+    <script type="text/javascript" src = "/socket.io/socket.io.js"></script>
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--  Material Dashboard CSS    -->
+    <link href="assets/css/material-dashboard.css" rel="stylesheet"/>
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--     Fonts and icons     -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+   
+</head>
+<body>
+<div class="wrapper">
+     <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="../../assets/img/sidebar-1.jpg">
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">
+                ER
+                </a>
+                <a href="#" class="simple-text logo-normal">
+                    CALL CENTER
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    <div class="photo">
+                        <img src="../../assets/img/faces/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            <span>
+                                <%= name.full_name %>
+                                <b class="caret"></b>
+                            </span>
+                        </a>
+                        <div class="clearfix"></div>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini">MP</span>
+                                        <span class="sidebar-normal">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini">EP</span>
+                                        <span class="sidebar-normal">Edit Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini">S</span>
+                                        <span class="sidebar-normal">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav">
+                    <%- include('includes/menus'); %>  
+                </ul>
+            </div>
+        <div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-1.jpg) "></div></div>
+     <div class="main-panel">
+      <!-- Main panel nav -->
+    <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                        <div class="ripple-container"></div></button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#" id="time_id">E.R v0.0.1</a>
+                    </div>
+                       
+                </div>
+    </nav>                   
+            <div class="content" ng-controller = "EventListController">
+              <div class="container-fluid">
+                  <div class="row">
+
+                      <div class="col-md-12">
+                          <div class="card card-plain">
+                               <div class="card card-nav-tabs">
+                                <div class="card-header" data-background-color="purple">
+                                  <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                      <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active">
+                                          <a href="#newEvent" data-toggle="tab">
+                                            New Events
+                                          <div class="ripple-container"></div></a>
+                                        </li>
+                                        <li class="">
+                                          <a href="#attEvent" data-toggle="tab">
+                                            Attended Events
+                                          <div class="ripple-container"></div></a>
+                                        </li>                                       
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <img  id = "loader_" src="img/loader.gif" style = "width:30px;height:30px">
+                            <div hidden class="tab-content">
+                                    <div class="tab-pane active" id="newEvent">
+                                        <div class="card">
+                                            <div class="card-header card-header-icon" data-background-color="rose">
+                                                <i class="material-icons">assignment</i>
+                                            </div>                                           
+                                            <div class="card-content table-full-width">
+                                                <h4 class="card-title">Recent Events</h4>
+                                                <div class="table-responsive">
+
+                                                    <table class="table" id="tabNew">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>No</th>
+                                                                <th>Reporter Name</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Nature of crime</th>
+                                                                <th>Reported Date</th>                                                               
+                                                                <!-- Detailed -->
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="eventlistTb"> 
+                                                       
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        <!--Attended Event -->
+                                    <div class="tab-pane" id="attEvent">
+                                        <div class="card">
+                                            <div class="card-header card-header-icon" data-background-color="rose">
+                                                <i class="material-icons">assignment</i>
+                                            </div>
+                                            <div class="card-content table-full-width">
+                                                <h4 class="card-title">Attended Events</h4>
+                                                <div class="table-responsive">
+                                                <!-- <div class="card-content table-full-width"> -->
+                                                   <table class="table" width="100%" id="tabAtt">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>No</th>
+                                                                <th>Reporter Name</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Nature of crime</th>
+                                                                <th>Reported Date</th>
+                                                                <!-- Detailed -->
+                                                                <th>Address</th>                                                               
+                                                                <th>Report Description</th>                                                               
+                                                                <th>Phone Agent</th>                                                               
+                                                                <th>Radio Agent</th>                                                               
+                                                                <th>Assignment Description</th>                                                               
+                                                                <th>Assignment Date</th>                                                               
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="AttendedeventlistTb">
+                                                            
+                                                        </tbody>
+                                                   </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>            
+
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+  
+    
+
+          <footer class="footer">
+              <div class="container-fluid">
+                  <nav class="pull-left">
+                      <ul>
+                        
+                      </ul>
+                  </nav>
+
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="font-weight: bolder;" id="reporter" >Reporter : Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                    <form method="POST"  class="form-horizontal" id="assignment_form">
+                                            <div class="card-content">
+                                                <div class="row">
+                                                    <label class="col-sm-4 label-on-left">Patrol Car</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-group label-floating is-empty">
+                                                            <input id="username" name="username" type="hidden" value="<%= name.username %>">                               </label>
+                                                            <input id="event_id" name="event_id" type="hidden">                               
+                                                            <input type="text" name="patrol_car" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <label class="col-sm-4 label-on-left">Description</label>
+                                                    <div class="col-sm-8">
+                                                           <textarea cols="38" rows="5" name="description"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                         <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                            <button type="button" id="assign_event" class="btn btn-primary pull-right">Assign Task</button>
+                                         </div>
+                            </div>
+                      </div>
+                     
+                    </div>
+
+                  </div>
+                  
+              </div>
+               <!-- Del event Modal -->
+                <div id="ModalDel" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <!-- <h4 class="modal-title" style="font-weight: bolder;" id="reporter" >Reporter : Modal Header</h4> -->
+                            </div>
+                            <div class="modal-body">
+                            <form method="POST"  class="form-horizontal" id="ev_del_form">
+                                <input id="del_event_id" name="event_id" type="hidden"> 
+                            </form>                              
+                                    Do you realy want to delete the event?
+                                         <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel Delete</button>
+                                            <button type="button" id="del_event" class="btn btn-primary pull-right">Continue delete</button>
+                                         </div>
+                            </div>
+                      </div>
+                     
+                    </div>
+
+                  </div>
+                  <p class="copyright pull-right">
+                      COPYRIGHT &copy; <script>document.write(new Date().getFullYear())</script>
+                  </p>
+                </div>
+          </footer>
+      </div>
+  </div>
+
+</body>
+<!--   Core JS Files   -->
+    <script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/material.min.js" type="text/javascript"></script>
+    <script src="assets/js/actions/event_assign.js" type="text/javascript"></script>
+    <script src="assets/js/actions/popevents.js" type="text/javascript"></script>
+    <script src="assets/js/actions/event_del.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap-notify.js"></script>
+    <script src="assets/js/material-dashboard.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/modernizr.custom.js"></script>
+    <script src="assets/js/classie.js"></script>
+    <script src="assets/js/modalEffects.js"></script>
+    <script src="assets/js/jquery.datatables.js"></script>
+    
+
+</html>
